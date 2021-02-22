@@ -13,6 +13,7 @@
 *order*: character vector specifying plotting order of *intgroup*
 
 ```
+### Make counts boxplot function ###
 geneBoxplot <- function(dds, gene, intgroup, order = NULL){
   require(DESeq2)
   require(ggplot2)
