@@ -17,7 +17,8 @@ GO_enrich <- function(DESeq2_results, geneID2GO_file, category){
   require(dplyr)
   geneID2GO <- readMappings(file = geneID2GO_file) 
   geneNames <- names(geneID2GO)
-  DEGs <- read.csv(DESeq2_results) %>% .[,1]
+  DEGs <- read.csv(DESeq2_results) %>%
+    .[,1]
   geneList <- factor(as.integer(geneNames %in% DEGs))
   names(geneList) <- geneNames
   
@@ -33,14 +34,15 @@ GO_enrich <- function(DESeq2_results, geneID2GO_file, category){
   resultFisher <- runTest(GOdata,
                           algorithm = "classic",
                           statistic = "fisher")
-  allGO <- usedGO(object = GOdata)
-  
+ 
   ### Get all results ###
+  allGO <- usedGO(object = GOdata)
   allRes <- GenTable(GOdata, 
                      p_value = resultFisher, 
                      orderBy = "resultFisher", 
                      ranksOf = "classic", 
                      topNodes = length(allGO))
+                     
   ### Correct p-values for multiple comparisons ###
   allRes$FDR <- p.adjust(allRes$p_value,
                          method = "fdr",
