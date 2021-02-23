@@ -7,10 +7,10 @@
 
 *gene*: a character, specifying the name of the gene to plot
 
-*intgroup*: character vector of names in colData(x) to use for grouping
+*intgroup*: a character vector of names in colData(x) to use for grouping
 
 #### Optional parameter:
-*order*: character vector specifying plotting order of *intgroup*
+*order*: a character vector specifying plotting order of *intgroup*
 
 ```
 ### Make counts boxplot function ###
