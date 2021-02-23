@@ -1,4 +1,4 @@
-## Function to extract best blast hit by evalue for each subject id from full tabular report
+## Function to extract best blast hit by evalue for each subject_id from full tabular report
 
 ### Function:
 
@@ -29,7 +29,7 @@ bb_hits <- function(blast_file, select_columns = NULL){
                "subject sci names", "subject com names", "subject blast names", "subject super kingdoms", "subject title", 
                "subject titles", "subject strand", "perc_query_coverage_per_subject", "% query coverage per hsp"))
   
-  ### Extract best blast hit for each subject id, breaking evalue ties by highest bit_score ###
+  ### Extract best blast hit for each subject_id, breaking evalue ties by highest bit_score ###
   best_hits <- blast_res %>% 
     group_by(subject_id) %>%
     filter(evalue == min(evalue)) %>%
