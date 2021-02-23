@@ -49,7 +49,7 @@ GO_enrich <- function(DESeq2_results, geneID2GO_file, category){
                          n = length(allRes$p_value))
   allRes <<- allRes
   sig_GOs <<- subset(allRes,
-                     FDR <= 0.05)
+                     FDR < 0.05)
 }
 ```
 
@@ -58,8 +58,8 @@ GO_enrich <- function(DESeq2_results, geneID2GO_file, category){
 
 ```
 ### Run topGO for biological process category ###
-GO_enrich(DESeq2_results="DEGs_treatment_vs_control.csv",
-          geneID2GO_file="geneID2GO.txt",
-          category="BP")
+GO_enrich(DESeq2_results = "DEGs_treatment_vs_control.csv",
+          geneID2GO_file = "geneID2GO.txt",
+          category = "BP")
 
 ```
