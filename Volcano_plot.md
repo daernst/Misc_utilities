@@ -32,9 +32,10 @@ volcano <- function(DESeq2_results, highlight = NULL, highlight_color = NULL){
                      dat$padj)
     
   ### Make volcano plot ###
-  vol <- ggplot(dat, aes(x = log2FoldChange,
-                          y = -log10(padj),
-                          color=color)) +
+  vol <- ggplot(dat,
+                aes(x = log2FoldChange,
+                    y = -log10(padj),
+                    color = color)) +
     geom_point() + 
     scale_color_identity() +
     geom_hline(yintercept=0, 
@@ -45,7 +46,7 @@ volcano <- function(DESeq2_results, highlight = NULL, highlight_color = NULL){
          y = expression("-log"[10]*"FDR")) +
     theme_bw() +
     theme(panel.grid.minor=element_blank(),
-          panel.grid.major=element_blank())  +
+          panel.grid.major=element_blank()) +
     theme(legend.position="none") +
     theme(text = element_text(size=16))
   
