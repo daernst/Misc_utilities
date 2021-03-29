@@ -22,7 +22,7 @@ volcano <- function(DESeq2_results, highlight = NULL, highlight_color = NULL){
   ### Create dataframe with color column denoting differentially expressed genes (red =  FDR < 0.05; black = FDR > 0.05) ###
   dat <- as.data.frame(DESeq2_results) %>% 
     rownames_to_column() %>% 
-    mutate(color = ifelse(res.lfcShrink$padj < 0.05,
+    mutate(color = ifelse(DESeq2_results$padj < 0.05,
                           "red2",
                           "black"))
     
