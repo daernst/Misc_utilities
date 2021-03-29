@@ -12,6 +12,8 @@
 
 *highlight_color*: the color of the points for the genes specified by *highlight*
 
+- ***Note: genes with an FDR < 0.05 will be highlighted in red by default.***
+
 ```
 ### Create volcano plot function ###
 volcano <- function(DESeq2_results, highlight = NULL, highlight_color = NULL){
