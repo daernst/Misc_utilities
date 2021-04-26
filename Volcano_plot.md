@@ -18,7 +18,7 @@
 
 ```
 ### Create volcano plot function ###
-volcano <- function(DESeq2_results, highlight = NULL, highlight_color = NULL, label = NULL){
+volcano <- function(DESeq2_results, highlight = NULL, highlight_color = NULL, label = FALSE){
   require(ggplot2)
   require(dplyr)
   require(tibble)
