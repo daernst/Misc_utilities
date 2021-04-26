@@ -76,7 +76,8 @@ volcano <- function(DESeq2_results, highlight = NULL, highlight_color = NULL, la
                         box.padding = unit(0.35,
                                            "lines"),
                         point.padding = unit(0.3,
-                                             "lines"))
+                                             "lines"),
+                        max.overlaps = Inf)
     }
   }
   vol <<- vol
