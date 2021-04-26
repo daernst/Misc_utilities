@@ -12,11 +12,13 @@
 
 *highlight_color*: the color of the points for the genes specified by *highlight*
 
+*label*: whether to label the highlighted points with the rownames from *DESeq2_results*
+
 - ***Note: genes with an FDR < 0.05 will be highlighted in red by default.***
 
 ```
 ### Create volcano plot function ###
-volcano <- function(DESeq2_results, highlight = NULL, highlight_color = NULL){
+volcano <- function(DESeq2_results, highlight = NULL, highlight_color = NULL, label = NULL){
   require(ggplot2)
   require(dplyr)
   require(tibble)
@@ -40,19 +42,19 @@ volcano <- function(DESeq2_results, highlight = NULL, highlight_color = NULL){
                     color = color)) +
     geom_point() + 
     scale_color_identity() +
-    geom_hline(yintercept=0, 
-               linetype="dashed") +
-    geom_vline(xintercept=0, 
-               linetype="dashed") +
+    geom_hline(yintercept = 0, 
+               linetype = "dashed") +
+    geom_vline(xintercept = 0, 
+               linetype = "dashed") +
     labs(x = expression("log"[2]*"FC"),
          y = expression("-log"[10]*"FDR")) +
     theme_bw() +
-    theme(panel.grid.minor=element_blank(),
-          panel.grid.major=element_blank()) +
-    theme(legend.position="none") +
-    theme(text = element_text(size=16))
+    theme(panel.grid.minor = element_blank(),
+          panel.grid.major = element_blank()) +
+    theme(legend.position = "none") +
+    theme(text = element_text(size = 16))
   
-  ### If specified, highlight specific genes ###
+  ### If specified, highlight and label specific genes ###
   if(!is.null(highlight) & !is.null(highlight_color)){
     gene_highlight <- dat %>%
       filter(rowname %in% highlight) %>%
@@ -62,6 +64,19 @@ volcano <- function(DESeq2_results, highlight = NULL, highlight_color = NULL){
                  mapping = aes(x = log2FoldChange,
                                y = -log10(padj),
                                color=color))
+    if(label == TRUE){
+      vol <- vol + 
+        geom_text_repel(data = gene_highlight, 
+                        aes(x = log2FoldChange, 
+                            y = -log10(padj), 
+                            label = rowname, 
+                            color = "black"),
+                        size = 5,
+                        box.padding = unit(0.35,
+                                           "lines"),
+                        point.padding = unit(0.3,
+                                             "lines"))
+    }
   }
   vol <<- vol
   return(vol)
@@ -71,12 +86,13 @@ volcano <- function(DESeq2_results, highlight = NULL, highlight_color = NULL){
 ### Make volcano plot:
 
 ```
-### Make vector of genes to highlight (optional) ###
+### Make vector of genes to highlight and label (optional) ###
 intgenes <- c("BANY.1.2.g05189", "BANY.1.2.g10506", "BANY.1.2.g03920")
 
 
 ### Make volcano plot ###
 volcano(DESeq2_results = res.lfcShrink, 
         highlight = intgenes, 
-        highlight_color = "dodgerblue")
+        highlight_color = "dodgerblue",
+        label = TRUE)
 ```
