@@ -22,6 +22,7 @@ volcano <- function(DESeq2_results, highlight = NULL, highlight_color = NULL, la
   require(ggplot2)
   require(dplyr)
   require(tibble)
+  require(ggrepel)
   
   ### Create dataframe with color column denoting differentially expressed genes (red =  FDR < 0.05; black = FDR > 0.05) ###
   dat <- as.data.frame(DESeq2_results) %>% 
