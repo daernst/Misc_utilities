@@ -10,11 +10,13 @@
 *intgroup*: a character vector of names in colData(x) to use for grouping
 
 #### Optional parameter:
+*exclude*: a character vector specifying levels of *intgroup* to exclude in the plot
+
 *order*: a character vector specifying plotting order of *intgroup*
 
 ```
 ### Make counts boxplot function ###
-geneBoxplot <- function(dds, gene, intgroup, order = NULL){
+geneBoxplot <- function(dds, gene, intgroup, exclude = NULL, order = NULL){
   require(DESeq2)
   require(ggplot2)
   
@@ -28,14 +30,18 @@ geneBoxplot <- function(dds, gene, intgroup, order = NULL){
                        replaced = FALSE)
                        
   ### Set plotting order ###
+  if(!is.null(exclude)){
+    gcount <- filter(gcount,
+                     !(gcount[,intgroup] %in% exclude))
+    }
   if(!is.null(order)){
     gcount[,intgroup] <- factor(gcount[,intgroup], 
-                            levels = order)
+                                levels = order)
     }
   ### Plot boxplots ###
   p <- ggplot(data = gcount,
                aes(x = gcount[,intgroup], 
-                  y = count)) + 
+                   y = count)) + 
     stat_boxplot(aes(x = gcount[,intgroup], 
                      y = count), 
                  geom='errorbar', 
