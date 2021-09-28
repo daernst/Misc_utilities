@@ -6,3 +6,4 @@
 2. Run topGO gene ontology enrichment analysis using DESeq2 results
 3. Make a volcano plot from DESeq2 results
 4. Make boxplots of normalized gene counts from DESeq2
+5. Make a log2FC plot from DESeq2 results
